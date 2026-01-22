@@ -1,18 +1,8 @@
-<!DOCTYPE html>
-<html>
-<head><title>Word Counter</title><link rel="stylesheet" href="css/style.css"></head>
-<body>
-<header class="topbar"><h1>📝 Word Counter</h1><a href="index.html">⬅ Back</a></header>
-<section class="tools">
-<textarea id="txt" oninput="count()" style="width:100%;height:120px;"></textarea>
-<p id="res"></p>
-</section>
-<script>
-function count(){
- let t=document.getElementById("txt").value;
- document.getElementById("res").innerText=
- "Words: "+t.trim().split(/\s+/).length+" | Characters: "+t.length;
-}
-</script>
-</body>
-</html>
+<!DOCTYPE html><html><body>
+<div class="tool">
+<textarea id="txt" placeholder="Type text here"></textarea>
+<button onclick="countWords()">Count</button>
+<div id="wcOut" class="output"></div>
+</div>
+<script src="js/main.js"></script>
+</body></html>
