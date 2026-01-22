@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head><title>Timer</title><link rel="stylesheet" href="css/style.css"></head>
+<body>
+<header class="topbar"><h1>⏳ Timer</h1><a href="index.html">⬅ Back</a></header>
+<section class="tools">
+<input id="sec" type="number" placeholder="Seconds">
+<button onclick="start()">Start</button>
+<h2 id="out"></h2>
+</section>
+<script>
+function start(){
+ let s=document.getElementById("sec").value;
+ let i=setInterval(()=>{
+   document.getElementById("out").innerText=s--;
+   if(s<0) clearInterval(i);
+ },1000);
+}
+</script>
+</body>
+</html>
