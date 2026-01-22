@@ -1,1 +1,141 @@
-/* same final CSS as before */
+:root {
+  --bg-dark: #0b0f1a;
+  --bg-light: #f4f6fb;
+
+  --glass-dark: rgba(255,255,255,0.08);
+  --glass-light: rgba(255,255,255,0.65);
+
+  --neon: #00fff0;
+
+  --text-dark: #eaeaf0;
+  --text-light: #0b0f1a;
+
+  --radius: 18px;
+  --blur: blur(14px);
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background: var(--bg-dark);
+  color: var(--text-dark);
+  transition: 0.4s;
+}
+
+/* CYBER GRID BACKGROUND */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(transparent 95%, rgba(0,255,240,0.08) 96%),
+    linear-gradient(90deg, transparent 95%, rgba(0,255,240,0.08) 96%);
+  background-size: 40px 40px;
+  animation: move 20s linear infinite;
+}
+@keyframes move {
+  to { background-position: 40px 40px; }
+}
+
+/* HEADER */
+.topbar {
+  position: sticky;
+  top: 0;
+  padding: 16px 28px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  backdrop-filter: blur(12px);
+  background: rgba(0,0,0,0.5);
+}
+
+.logo { font-weight: 700; }
+
+.theme-btn {
+  border-radius: 50%;
+  background: none;
+  border: 1px solid rgba(255,255,255,0.3);
+  padding: 10px;
+  color: inherit;
+  cursor: pointer;
+}
+
+/* HERO */
+.hero {
+  text-align: center;
+  padding: 80px 20px;
+}
+.hero h2 {
+  font-size: 3rem;
+}
+.hero span {
+  color: var(--neon);
+  text-shadow: 0 0 18px rgba(0,255,240,0.6);
+}
+
+/* TOOLS */
+.tools {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 28px;
+  padding: 40px 6%;
+}
+
+.tool-card {
+  background: var(--glass-dark);
+  backdrop-filter: var(--blur);
+  border-radius: var(--radius);
+  padding: 26px;
+  border: 1px solid rgba(255,255,255,0.15);
+  transition: 0.35s;
+}
+
+.tool-card:hover {
+  transform: translateY(-10px) scale(1.03);
+  box-shadow: 0 0 30px rgba(0,255,240,0.35);
+}
+
+.tool-card a {
+  display: inline-block;
+  margin-top: 14px;
+  padding: 10px 16px;
+  border-radius: 10px;
+  border: 1px solid rgba(0,255,240,0.4);
+  color: var(--neon);
+  text-decoration: none;
+}
+
+/* ADS */
+.ad-slot {
+  margin: 36px auto;
+  max-width: 1100px;
+}
+
+/* SCROLL ANIMATION */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: 0.7s ease;
+}
+.reveal.show {
+  opacity: 1;
+  transform: none;
+}
+
+/* LIGHT MODE */
+.light {
+  background: var(--bg-light);
+  color: var(--text-light);
+}
+.light .tool-card {
+  background: var(--glass-light);
+}
+.light .topbar {
+  background: rgba(255,255,255,0.7);
+}
+
+/* MOBILE */
+@media(max-width:768px){
+  .hero h2 { font-size: 2.2rem; }
+}
