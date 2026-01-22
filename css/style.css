@@ -1,17 +1,28 @@
+/* ======================
+   THEME VARIABLES
+====================== */
 :root {
   --bg-dark: #0b0f1a;
   --bg-light: #f4f6fb;
 
-  --glass-dark: rgba(255,255,255,0.08);
-  --glass-light: rgba(255,255,255,0.65);
+  --glass-dark: rgba(255, 255, 255, 0.08);
+  --glass-light: rgba(255, 255, 255, 0.65);
 
   --neon: #00fff0;
+  --neon-soft: rgba(0, 255, 240, 0.35);
 
   --text-dark: #eaeaf0;
   --text-light: #0b0f1a;
 
-  --radius: 18px;
+  --radius: 16px;
   --blur: blur(14px);
+}
+
+/* ======================
+   BASE
+====================== */
+* {
+  box-sizing: border-box;
 }
 
 body {
@@ -19,10 +30,13 @@ body {
   font-family: 'Inter', sans-serif;
   background: var(--bg-dark);
   color: var(--text-dark);
+  min-height: 100vh;
   transition: 0.4s;
 }
 
-/* CYBER GRID BACKGROUND */
+/* ======================
+   CYBER GRID BACKGROUND
+====================== */
 body::before {
   content: "";
   position: fixed;
@@ -32,56 +46,70 @@ body::before {
     linear-gradient(transparent 95%, rgba(0,255,240,0.08) 96%),
     linear-gradient(90deg, transparent 95%, rgba(0,255,240,0.08) 96%);
   background-size: 40px 40px;
-  animation: move 20s linear infinite;
+  animation: gridMove 20s linear infinite;
 }
-@keyframes move {
+
+@keyframes gridMove {
   to { background-position: 40px 40px; }
 }
 
-/* HEADER */
+/* ======================
+   HEADER
+====================== */
 .topbar {
   position: sticky;
   top: 0;
+  z-index: 100;
   padding: 16px 28px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   backdrop-filter: blur(12px);
-  background: rgba(0,0,0,0.5);
+  background: rgba(0, 0, 0, 0.5);
 }
 
-.logo { font-weight: 700; }
-
-.theme-btn {
-  border-radius: 50%;
-  background: none;
-  border: 1px solid rgba(255,255,255,0.3);
-  padding: 10px;
-  color: inherit;
-  cursor: pointer;
+.logo {
+  font-weight: 700;
+  letter-spacing: 0.5px;
 }
 
-/* HERO */
+.topbar a {
+  color: var(--neon);
+  text-decoration: none;
+}
+
+/* ======================
+   HERO
+====================== */
 .hero {
   text-align: center;
   padding: 80px 20px;
 }
+
 .hero h2 {
   font-size: 3rem;
+  margin-bottom: 10px;
 }
+
 .hero span {
   color: var(--neon);
-  text-shadow: 0 0 18px rgba(0,255,240,0.6);
+  text-shadow: 0 0 18px var(--neon-soft);
 }
 
-/* TOOLS */
+/* ======================
+   SECTIONS / CONTAINERS
+====================== */
 .tools {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 20px;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 28px;
-  padding: 40px 6%;
+  gap: 22px;
 }
 
+/* ======================
+   TOOL CARDS (HOME)
+====================== */
 .tool-card {
   background: var(--glass-dark);
   backdrop-filter: var(--blur);
@@ -92,50 +120,153 @@ body::before {
 }
 
 .tool-card:hover {
-  transform: translateY(-10px) scale(1.03);
-  box-shadow: 0 0 30px rgba(0,255,240,0.35);
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 0 28px var(--neon-soft);
 }
 
 .tool-card a {
   display: inline-block;
   margin-top: 14px;
-  padding: 10px 16px;
+  padding: 10px 18px;
   border-radius: 10px;
-  border: 1px solid rgba(0,255,240,0.4);
+  border: 1px solid var(--neon-soft);
   color: var(--neon);
   text-decoration: none;
 }
 
-/* ADS */
-.ad-slot {
-  margin: 36px auto;
-  max-width: 1100px;
+/* ======================
+   INPUTS / TEXTAREA / SELECT
+====================== */
+input,
+textarea,
+select {
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.25);
+  background: rgba(255,255,255,0.06);
+  color: inherit;
+  font-size: 1rem;
+  outline: none;
+  backdrop-filter: blur(8px);
+  transition: 0.25s;
 }
 
-/* SCROLL ANIMATION */
+input::placeholder,
+textarea::placeholder {
+  color: rgba(255,255,255,0.6);
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: var(--neon);
+  box-shadow: 0 0 0 2px var(--neon-soft);
+}
+
+/* ======================
+   BUTTONS (ALL TOOLS)
+====================== */
+button {
+  padding: 14px 22px;
+  border-radius: 12px;
+  border: 1px solid var(--neon-soft);
+  background: linear-gradient(
+    135deg,
+    rgba(0,255,240,0.25),
+    rgba(0,255,240,0.05)
+  );
+  color: var(--neon);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+button:hover {
+  box-shadow: 0 0 22px var(--neon-soft);
+  transform: translateY(-2px);
+}
+
+button:active {
+  transform: scale(0.97);
+}
+
+/* ======================
+   RESULTS / OUTPUT TEXT
+====================== */
+h2, h3, p {
+  margin: 0;
+}
+
+#calcResult,
+#passwordOutput,
+#stopwatchTime,
+#timerOutput,
+#wordResult,
+#ageOutput,
+#bmiOutput,
+#kmOutput,
+#randOutput {
+  margin-top: 10px;
+  font-size: 1.4rem;
+  color: var(--neon);
+}
+
+/* ======================
+   ADS
+====================== */
+.ad-slot {
+  max-width: 1100px;
+  margin: 36px auto;
+}
+
+/* ======================
+   SCROLL REVEAL
+====================== */
 .reveal {
   opacity: 0;
-  transform: translateY(24px);
+  transform: translateY(22px);
   transition: 0.7s ease;
 }
+
 .reveal.show {
   opacity: 1;
   transform: none;
 }
 
-/* LIGHT MODE */
+/* ======================
+   LIGHT MODE
+====================== */
 .light {
   background: var(--bg-light);
   color: var(--text-light);
 }
+
+.light input,
+.light textarea,
+.light select {
+  background: rgba(255,255,255,0.8);
+  border-color: rgba(0,0,0,0.15);
+}
+
 .light .tool-card {
   background: var(--glass-light);
 }
+
 .light .topbar {
-  background: rgba(255,255,255,0.7);
+  background: rgba(255,255,255,0.75);
 }
 
-/* MOBILE */
-@media(max-width:768px){
-  .hero h2 { font-size: 2.2rem; }
+/* ======================
+   MOBILE
+====================== */
+@media (max-width: 768px) {
+  .hero h2 {
+    font-size: 2.2rem;
+  }
+
+  .tools {
+    padding: 30px 16px;
+  }
 }
