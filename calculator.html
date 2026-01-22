@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Calculator</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <h1 class="logo">🧮 Calculator</h1>
+  <a href="index.html">⬅ Back</a>
+</header>
+
+<section class="tools">
+  <input id="calcInput" type="text" placeholder="e.g. 5+5*2" style="width:100%;padding:12px;">
+  <button onclick="calculate()">Calculate</button>
+  <h3 id="calcResult"></h3>
+</section>
+
+<script>
+function calculate(){
+  try {
+    document.getElementById("calcResult").innerText =
+      eval(document.getElementById("calcInput").value);
+  } catch {
+    document.getElementById("calcResult").innerText = "Invalid Expression";
+  }
+}
+</script>
+</body>
+</html>
