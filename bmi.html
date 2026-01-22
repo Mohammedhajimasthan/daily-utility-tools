@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head><title>BMI</title><link rel="stylesheet" href="css/style.css"></head>
+<body>
+<header class="topbar"><h1>⚖️ BMI Calculator</h1><a href="index.html">⬅ Back</a></header>
+<section class="tools">
+<input id="w" placeholder="Weight kg">
+<input id="h" placeholder="Height m">
+<button onclick="bmi()">Calculate</button>
+<h2 id="b"></h2>
+</section>
+<script>
+function bmi(){
+ let w=w=document.getElementById("w").value;
+ let h=document.getElementById("h").value;
+ document.getElementById("b").innerText=(w/(h*h)).toFixed(2);
+}
+</script>
+</body>
+</html>
