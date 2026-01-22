@@ -39,7 +39,14 @@ document.getElementById('convertUnit').addEventListener('click', () => {
 // Weather Checker (Free API; get key from openweathermap.org)
 document.getElementById('checkWeather').addEventListener('click', async () => {
     const city = document.getElementById('cityInput').value;
-    const apiKey = 'YOUR_API_KEY'; // Replace with free API key
+    const apiKey = '"main":{
+     "temp":306.15, //current temperature
+     "pressure":1013,
+     "humidity":44,
+     "temp_min":306.15, //min current temperature in the city
+     "temp_max":306.15 //max current temperature in the city
+   }
+  '; // Replace with free API key
     try {
         const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`);
         const data = await res.json();
