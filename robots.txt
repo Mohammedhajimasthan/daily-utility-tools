@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://YOUR_USERNAME.github.io/daily-utility-tools/sitemap.xml
+Sitemap: https://mohammedhajimasthan.github.io/daily-utility-tools/sitemap.xml
