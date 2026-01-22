@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quick Utility Tools</title>
+    <meta name="description" content="Free, simple online calculators and tools for daily use.">
+    <meta name="google-adsense-account" content="ca-pub-3849886072591861">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3849886072591861" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css"> <!-- Link to external CSS -->
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1 class="mb-0">Quick Utility Tools</h1>
+            <p class="mb-0">Simple calculators for everyday needs</p>
+        </div>
+        <!-- AdSense Header Banner -->
+        <div class="container ad-banner">
+            <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3849886072591861" data-ad-slot="YOUR_HEADER_AD_SLOT_ID" data-ad-format="auto" data-full-width-responsive="true"></ins>
+            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+    </header>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="#bmi">BMI Calculator</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#currency">Currency Converter</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#password">Password Generator</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#unit">Unit Converter</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#weather">Weather Checker</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container my-4">
+        <section id="bmi" class="tool-section">
+            <h2>BMI Calculator</h2>
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="card p-3">
+                        <label for="weight">Weight (kg):</label>
+                        <input type="number" id="weight" placeholder="e.g., 70">
+                        <label for="height">Height (m):</label>
+                        <input type="number" id="height" step="0.01" placeholder="e.g., 1.75">
+                        <button id="calculateBMI" class="btn btn-primary mt-2">Calculate</button>
+                        <p id="bmiResult" class="mt-2 fw-bold"></p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <!-- AdSense Sidebar Ad -->
+                    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3849886072591861" data-ad-slot="YOUR_SIDEBAR_AD_SLOT_ID" data-ad-format="auto" data-full-width-responsive="true"></ins>
+                    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+                </div>
+            </div>
+        </section>
+
+        <section id="currency" class="tool-section">
+            <h2>Currency Converter</h2>
+            <div class="card p-3">
+                <label for="amount">Amount:</label>
+                <input type="number" id="amount" placeholder="e.g., 100">
+                <label for="fromCurrency">From:</label>
+                <select id="fromCurrency"><option value="USD">USD</option><option value="EUR">EUR</option><option value="INR">INR</option></select>
+                <label for="toCurrency">To:</label>
+                <select id="toCurrency"><option value="EUR">EUR</option><option value="USD">USD</option><option value="INR">INR</option></select>
+                <button id="convertCurrency" class="btn btn-primary mt-2">Convert</button>
+                <p id="currencyResult" class="mt-2 fw-bold"></p>
+            </div>
+        </section>
+
+        <section id="password" class="tool-section">
+            <h2>Password Generator</h2>
+            <div class="card p-3">
+                <label for="passLength">Length:</label>
+                <input type="number" id="passLength" value="12" min="4" max="50">
+                <button id="generatePass" class="btn btn-primary mt-2">Generate</button>
+                <p id="passOutput" class="mt-2 fw-bold"></p>
+            </div>
+        </section>
+
+        <section id="unit" class="tool-section">
+            <h2>Unit Converter</h2>
+            <div class="card p-3">
+                <select id="fromUnit"><option value="meters">Meters</option><option value="feet">Feet</option></select>
+                <input type="number" id="unitValue" placeholder="Value">
+                <select id="toUnit"><option value="feet">Feet</option><option value="meters">Meters</option></select>
+                <button id="convertUnit" class="btn btn-primary mt-2">Convert</button>
+                <p id="unitResult" class="mt-2 fw-bold"></p>
+            </div>
+        </section>
+
+        <section id="weather" class="tool-section">
+            <h2>Weather Checker</h2>
+            <div class="card p-3">
+                <input type="text" id="cityInput" placeholder="Enter city">
+                <button id="checkWeather" class="btn btn-primary mt-2">Check</button>
+                <div id="weatherOutput" class="mt-2"></div>
+            </div>
+        </section>
+
+        <!-- In-Content Ad -->
+        <div class="ad-banner">
+            <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3849886072591861" data-ad-slot="YOUR_INCONTENT_AD_SLOT_ID" data-ad-format="auto" data-full-width-responsive="true"></ins>
+            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 Quick Utility Tools. Free and simple.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script> <!-- Link to external JS -->
+</body>
+</html>
