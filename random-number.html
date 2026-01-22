@@ -1,19 +1,9 @@
-<!DOCTYPE html>
-<html>
-<head><title>Random Number</title><link rel="stylesheet" href="css/style.css"></head>
-<body>
-<header class="topbar"><h1>🎲 Random Number</h1><a href="index.html">⬅ Back</a></header>
-<section class="tools">
-<input id="min" placeholder="Min">
-<input id="max" placeholder="Max">
-<button onclick="gen()">Generate</button>
-<h2 id="r"></h2>
-</section>
-<script>
-function gen(){
- let min=+min.value,max=+max.value;
- r.innerText=Math.floor(Math.random()*(max-min+1))+min;
-}
-</script>
-</body>
-</html>
+<!DOCTYPE html><html><body>
+<div class="tool">
+<input id="rMin" placeholder="Start">
+<input id="rMax" placeholder="End">
+<button onclick="rand()">Generate</button>
+<div id="rOut" class="output"></div>
+</div>
+<script src="js/main.js"></script>
+</body></html>
