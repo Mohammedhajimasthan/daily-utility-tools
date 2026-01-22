@@ -1,211 +1,61 @@
-/* =========================
-   THEME TOGGLE (GLOBAL)
-========================= */
-const toggle = document.getElementById("themeToggle");
-const root = document.documentElement;
-
-if (toggle) {
-  toggle.onclick = () => {
-    const light = root.classList.toggle("light");
-    localStorage.setItem("theme", light ? "light" : "dark");
-  };
-
-  if (localStorage.getItem("theme") === "light") {
-    root.classList.add("light");
-  }
+function calc(){
+ try{res.innerText=eval(exp.value)}
+ catch{res.innerText="Invalid expression"}
 }
 
-/* =========================
-   SCROLL REVEAL (GLOBAL)
-========================= */
-const revealEls = document.querySelectorAll(".reveal");
-if (revealEls.length) {
-  const observer = new IntersectionObserver(
-    entries => {
-      entries.forEach(e => {
-        if (e.isIntersecting) e.target.classList.add("show");
-      });
-    },
-    { threshold: 0.15 }
-  );
-
-  revealEls.forEach(el => observer.observe(el));
+function genPwd(){
+ const c="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$!";
+ let p="";
+ for(let i=0;i<12;i++)p+=c[Math.floor(Math.random()*c.length)];
+ pwd.innerText=p;
 }
 
-/* =========================
-   CALCULATOR
-========================= */
-function calculateExpression() {
-  const input = document.getElementById("calcInput");
-  const output = document.getElementById("calcResult");
-  if (!input || !output) return;
+let sw=0,si;
+function swStart(){
+ if(si)return;
+ si=setInterval(()=>{swOut.innerText=++sw},1000);
+}
+function swStop(){clearInterval(si);si=null}
+function swReset(){swStop();sw=0;swOut.innerText=0}
 
-  try {
-    output.innerText = eval(input.value);
-  } catch {
-    output.innerText = "Invalid Expression";
-  }
+let ti;
+function startTimer(){
+ let s=+timerSec.value;
+ clearInterval(ti);
+ ti=setInterval(()=>{
+   timerOut.innerText=s;
+   if(--s<0) clearInterval(ti);
+ },1000);
 }
 
-/* =========================
-   PASSWORD GENERATOR
-========================= */
-function generatePassword() {
-  const out = document.getElementById("passwordOutput");
-  if (!out) return;
-
-  const chars =
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$!%&";
-  let pwd = "";
-  for (let i = 0; i < 12; i++) {
-    pwd += chars[Math.floor(Math.random() * chars.length)];
-  }
-  out.innerText = pwd;
+function rand(){
+ const min=+rMin.value,max=+rMax.value;
+ rOut.innerText=min<=max
+ ?Math.floor(Math.random()*(max-min+1))+min
+ :"Invalid range";
 }
 
-/* =========================
-   STOPWATCH
-========================= */
-let stopwatchTime = 0;
-let stopwatchInterval = null;
-
-function startStopwatch() {
-  if (stopwatchInterval) return;
-  stopwatchInterval = setInterval(() => {
-    stopwatchTime++;
-    const el = document.getElementById("stopwatchTime");
-    if (el) el.innerText = stopwatchTime;
-  }, 1000);
+function bmi(){
+ const w=+bmiW.value,h=+bmiH.value;
+ bmiOut.innerText=w>0&&h>0?(w/(h*h)).toFixed(2):"Invalid";
 }
 
-function stopStopwatch() {
-  clearInterval(stopwatchInterval);
-  stopwatchInterval = null;
+function convert(){
+ const v=+unitVal.value;
+ const m={m:1,km:1000,cm:.01,mm:.001};
+ unitOut.innerText=(v*m[from.value]/m[to.value]).toFixed(4);
 }
 
-function resetStopwatch() {
-  stopStopwatch();
-  stopwatchTime = 0;
-  const el = document.getElementById("stopwatchTime");
-  if (el) el.innerText = 0;
+function age(){
+ const d=new Date(dob.value);
+ const diff=Date.now()-d;
+ ageOut.innerText=
+ Math.floor(diff/31557600000)+" yrs | "+diff+" ms";
 }
 
-/* =========================
-   COUNTDOWN TIMER
-========================= */
-let timerInterval = null;
-
-function startTimer() {
-  const input = document.getElementById("timerSeconds");
-  const out = document.getElementById("timerOutput");
-  if (!input || !out) return;
-
-  let seconds = parseInt(input.value, 10);
-  if (isNaN(seconds) || seconds <= 0) {
-    out.innerText = "Enter valid seconds";
-    return;
-  }
-
-  clearInterval(timerInterval);
-  out.innerText = seconds;
-
-  timerInterval = setInterval(() => {
-    seconds--;
-    out.innerText = seconds;
-    if (seconds <= 0) clearInterval(timerInterval);
-  }, 1000);
-}
-
-/* =========================
-   WORD COUNTER
-========================= */
-function countWords() {
-  const text = document.getElementById("wordInput");
-  const res = document.getElementById("wordResult");
-  if (!text || !res) return;
-
-  const value = text.value;
-  const words = value.trim() ? value.trim().split(/\s+/).length : 0;
-  res.innerText = `Words: ${words} | Characters: ${value.length}`;
-}
-
-/* =========================
-   AGE CALCULATOR
-========================= */
-function calculateAge() {
-  const dobInput = document.getElementById("dob");
-  const out = document.getElementById("ageOutput");
-  if (!dobInput || !out) return;
-
-  const dob = new Date(dobInput.value);
-  if (isNaN(dob.getTime())) {
-    out.innerText = "Select valid date";
-    return;
-  }
-
-  const today = new Date();
-  let age = today.getFullYear() - dob.getFullYear();
-  const m = today.getMonth() - dob.getMonth();
-  if (m < 0 || (m === 0 && today.getDate() < dob.getDate())) {
-    age--;
-  }
-  out.innerText = `${age} Years`;
-}
-
-/* =========================
-   BMI CALCULATOR
-========================= */
-function calculateBMI() {
-  const w = document.getElementById("bmiWeight");
-  const h = document.getElementById("bmiHeight");
-  const out = document.getElementById("bmiOutput");
-  if (!w || !h || !out) return;
-
-  const weight = parseFloat(w.value);
-  const height = parseFloat(h.value);
-
-  if (weight <= 0 || height <= 0) {
-    out.innerText = "Enter valid values";
-    return;
-  }
-
-  const bmi = weight / (height * height);
-  out.innerText = bmi.toFixed(2);
-}
-
-/* =========================
-   UNIT CONVERTER (KM → M)
-========================= */
-function convertKmToM() {
-  const km = document.getElementById("kmInput");
-  const out = document.getElementById("kmOutput");
-  if (!km || !out) return;
-
-  const val = parseFloat(km.value);
-  if (isNaN(val)) {
-    out.innerText = "Enter valid number";
-    return;
-  }
-  out.innerText = `${val * 1000} meters`;
-}
-
-/* =========================
-   RANDOM NUMBER
-========================= */
-function generateRandom() {
-  const minEl = document.getElementById("randMin");
-  const maxEl = document.getElementById("randMax");
-  const out = document.getElementById("randOutput");
-  if (!minEl || !maxEl || !out) return;
-
-  const min = parseInt(minEl.value, 10);
-  const max = parseInt(maxEl.value, 10);
-
-  if (isNaN(min) || isNaN(max) || min > max) {
-    out.innerText = "Invalid range";
-    return;
-  }
-
-  out.innerText =
-    Math.floor(Math.random() * (max - min + 1)) + min;
+function countWords(){
+ const t=txt.value;
+ wcOut.innerText=
+ "Words: "+(t.trim()?t.trim().split(/\s+/).length:0)+
+ " | Characters: "+t.length;
 }
