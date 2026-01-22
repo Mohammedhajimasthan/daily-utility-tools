@@ -17,9 +17,18 @@ min-height:100vh;
 }
 
 .topbar{
-padding:20px 26px;
+display:flex;
+align-items:center;
+gap:16px;
+padding:18px 26px;
 background:rgba(0,0,0,.6);
 backdrop-filter:blur(14px);
+}
+
+.topbar a{
+color:var(--neon);
+text-decoration:none;
+font-weight:600;
 }
 
 .grid{
