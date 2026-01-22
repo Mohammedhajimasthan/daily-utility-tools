@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Stopwatch</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <h1 class="logo">⏱ Stopwatch</h1>
+  <a href="index.html">⬅ Back</a>
+</header>
+
+<section class="tools">
+  <h2 id="time">0</h2>
+  <button onclick="start()">Start</button>
+  <button onclick="stop()">Stop</button>
+  <button onclick="reset()">Reset</button>
+</section>
+
+<script>
+let t=0, i;
+function start(){ i=setInterval(()=>{document.getElementById("time").innerText=++t},1000); }
+function stop(){ clearInterval(i); }
+function reset(){ stop(); t=0; document.getElementById("time").innerText=0; }
+</script>
+</body>
+</html>
