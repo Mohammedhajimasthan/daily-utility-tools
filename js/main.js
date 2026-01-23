@@ -59,3 +59,76 @@ function countWords(){
  "Words: "+(t.trim()?t.trim().split(/\s+/).length:0)+
  " | Characters: "+t.length;
 }
+
+// ========== EmailJS Feedback Form ==========
+// SETUP: Replace these placeholders with your EmailJS credentials
+const EMAILJS_PUBLIC_KEY = "YOUR_PUBLIC_KEY";      // Get from EmailJS dashboard > Account > API Keys
+const EMAILJS_SERVICE_ID = "YOUR_SERVICE_ID";      // Get from EmailJS dashboard > Email Services
+const EMAILJS_TEMPLATE_ID = "YOUR_TEMPLATE_ID";    // Get from EmailJS dashboard > Email Templates
+
+// Initialize EmailJS (runs when script loads)
+(function(){
+ if(typeof emailjs !== 'undefined'){
+  emailjs.init(EMAILJS_PUBLIC_KEY);
+ }
+})();
+
+function sendFeedback(e){
+ e.preventDefault();
+
+ const form = document.getElementById('feedbackForm');
+ const btn = document.getElementById('fbSubmit');
+ const status = document.getElementById('fbStatus');
+ const name = document.getElementById('fbName').value.trim();
+ const email = document.getElementById('fbEmail').value.trim();
+ const message = document.getElementById('fbMessage').value.trim();
+
+ // Validation
+ if(!name || name.length < 2){
+  status.className = 'output fb-error';
+  status.innerText = 'Please enter your name';
+  return false;
+ }
+
+ if(email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+  status.className = 'output fb-error';
+  status.innerText = 'Please enter a valid email';
+  return false;
+ }
+
+ if(!message || message.length < 10){
+  status.className = 'output fb-error';
+  status.innerText = 'Please enter at least 10 characters';
+  return false;
+ }
+
+ // Show loading state
+ btn.classList.add('fb-loading');
+ btn.innerText = 'Sending...';
+ status.className = 'output';
+ status.innerText = '';
+
+ // Send via EmailJS
+ emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+  user_name: name,
+  user_email: email || 'Not provided',
+  message: message,
+  page_url: window.location.href
+ })
+ .then(function(){
+  status.className = 'output fb-success';
+  status.innerText = 'Thank you! Your feedback has been sent.';
+  form.reset();
+ })
+ .catch(function(err){
+  status.className = 'output fb-error';
+  status.innerText = 'Failed to send. Please try again.';
+  console.error('EmailJS error:', err);
+ })
+ .finally(function(){
+  btn.classList.remove('fb-loading');
+  btn.innerText = 'Send Feedback';
+ });
+
+ return false;
+}
