@@ -1,0 +1,6 @@
+# robots.txt for webzkit.netlify.app
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://webzkit.netlify.app/sitemap.xml
