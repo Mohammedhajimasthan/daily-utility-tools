@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Feedback - Daily Utility Tools</title>
+<meta name="description" content="Send us your feedback, suggestions, or comments. We value your input to improve our free online utility tools.">
+<link rel="canonical" href="https://webzkit.netlify.app/feedback.html">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+<link rel="stylesheet" href="css/style.css">
+
+<meta name="google-adsense-account" content="ca-pub-3849886072591861">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3849886072591861"
+crossorigin="anonymous"></script>
+
+<!-- EmailJS SDK -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+</head>
+<body>
+
+<header class="topbar">
+<a href="index.html">⬅ Back</a>
+<h2>💬 Feedback</h2>
+</header>
+
+<div class="tool feedback-form">
+<p class="form-intro">We'd love to hear from you! Share your thoughts, suggestions, or report issues.</p>
+
+<form id="feedbackForm" onsubmit="return sendFeedback(event)">
+<input type="text" id="fbName" name="user_name" placeholder="Your Name" required>
+<input type="email" id="fbEmail" name="user_email" placeholder="Email (optional)">
+<textarea id="fbMessage" name="message" placeholder="Your feedback or message..." rows="5" required></textarea>
+<button type="submit" id="fbSubmit">Send Feedback</button>
+</form>
+
+<div id="fbStatus" class="output"></div>
+</div>
+
+<div class="ad-slot">
+<ins class="adsbygoogle"
+style="display:block"
+data-ad-client="ca-pub-3849886072591861"
+data-ad-slot="1779194830"
+data-ad-format="auto"
+data-full-width-responsive="true"></ins>
+<script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+</div>
+
+<script src="js/main.js"></script>
+</body>
+</html>
