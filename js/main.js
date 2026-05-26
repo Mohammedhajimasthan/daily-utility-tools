@@ -61,73 +61,117 @@ function countWords(){
 }
 
 // ========== EmailJS Feedback Form ==========
-// SETUP: Replace these placeholders with your EmailJS credentials
-const EMAILJS_PUBLIC_KEY = "YOUR_PUBLIC_KEY";      // Get from EmailJS dashboard > Account > API Keys
-const EMAILJS_SERVICE_ID = "YOUR_SERVICE_ID";      // Get from EmailJS dashboard > Email Services
-const EMAILJS_TEMPLATE_ID = "YOUR_TEMPLATE_ID";    // Get from EmailJS dashboard > Email Templates
+// SETUP STEPS (one-time, ~5 minutes):
+// 1. Sign up free at https://www.emailjs.com  (200 emails/month on free tier)
+// 2. Dashboard > Email Services > Add Service (Gmail, Outlook, etc.)  → copy Service ID
+// 3. Dashboard > Email Templates > Create Template
+//    Use these variables in the template body:
+//      {{user_name}}  {{user_email}}  {{message}}  {{page_url}}
+//    → copy Template ID
+// 4. Dashboard > Account > API Keys → copy your Public Key
+// 5. Paste the three values below and you're done — no backend needed.
+const EMAILJS_PUBLIC_KEY  = "YOUR_PUBLIC_KEY";   // e.g. "abc123XYZ"
+const EMAILJS_SERVICE_ID  = "YOUR_SERVICE_ID";   // e.g. "service_xxxxxxx"
+const EMAILJS_TEMPLATE_ID = "YOUR_TEMPLATE_ID";  // e.g. "template_xxxxxxx"
 
-// Initialize EmailJS (runs when script loads)
 (function(){
- if(typeof emailjs !== 'undefined'){
-  emailjs.init(EMAILJS_PUBLIC_KEY);
- }
+ if(typeof emailjs !== 'undefined') emailjs.init(EMAILJS_PUBLIC_KEY);
 })();
+
+// Character counter
+(function(){
+ const ta = document.getElementById('fbMessage');
+ const cc = document.getElementById('charCount');
+ if(!ta || !cc) return;
+ ta.addEventListener('input', function(){
+  const n = ta.value.length;
+  cc.innerText = n;
+  const el = cc.closest('.char-counter');
+  if(el) el.className = 'char-counter' + (n >= 1000 ? ' full' : n >= 800 ? ' near' : '');
+ });
+})();
+
+function _fbSetErr(inputId, errId, msg){
+ const inp = document.getElementById(inputId);
+ const err = document.getElementById(errId);
+ const grp = inp && inp.closest('.field-group');
+ if(grp) grp.classList.toggle('has-error', !!msg);
+ if(err) err.innerText = msg || '';
+}
 
 function sendFeedback(e){
  e.preventDefault();
 
- const form = document.getElementById('feedbackForm');
- const btn = document.getElementById('fbSubmit');
+ const form   = document.getElementById('feedbackForm');
+ const btn    = document.getElementById('fbSubmit');
  const status = document.getElementById('fbStatus');
- const name = document.getElementById('fbName').value.trim();
- const email = document.getElementById('fbEmail').value.trim();
- const message = document.getElementById('fbMessage').value.trim();
+ const name   = document.getElementById('fbName').value.trim();
+ const email  = document.getElementById('fbEmail').value.trim();
+ const msg    = document.getElementById('fbMessage').value.trim();
 
- // Validation
+ // Clear previous state
+ _fbSetErr('fbName',    'nameError',    '');
+ _fbSetErr('fbEmail',   'emailError',   '');
+ _fbSetErr('fbMessage', 'messageError', '');
+ status.className = 'fb-status';
+
+ // Field-level validation
+ let ok = true;
  if(!name || name.length < 2){
-  status.className = 'output fb-error';
-  status.innerText = 'Please enter your name';
-  return false;
+  _fbSetErr('fbName', 'nameError', 'Please enter your name (at least 2 characters).');
+  ok = false;
  }
-
  if(email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
-  status.className = 'output fb-error';
-  status.innerText = 'Please enter a valid email';
+  _fbSetErr('fbEmail', 'emailError', 'Please enter a valid email address.');
+  ok = false;
+ }
+ if(!msg || msg.length < 10){
+  _fbSetErr('fbMessage', 'messageError', 'Please write at least 10 characters.');
+  ok = false;
+ }
+ if(!ok) return false;
+
+ // Simple session rate-limit (max 3 submissions)
+ const sent = +(sessionStorage.getItem('_fb_n') || 0);
+ if(sent >= 3){
+  status.className = 'fb-status fb-error';
+  status.innerText = 'Too many submissions this session. Please try again later.';
   return false;
  }
 
- if(!message || message.length < 10){
-  status.className = 'output fb-error';
-  status.innerText = 'Please enter at least 10 characters';
-  return false;
- }
-
- // Show loading state
+ // Loading state
  btn.classList.add('fb-loading');
- btn.innerText = 'Sending...';
- status.className = 'output';
- status.innerText = '';
+ const btnText = btn.querySelector('.btn-text');
+ if(btnText) btnText.innerText = 'Sending…';
+ btn.disabled = true;
 
- // Send via EmailJS
  emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
-  user_name: name,
+  user_name:  name,
   user_email: email || 'Not provided',
-  message: message,
-  page_url: window.location.href
+  message:    msg,
+  page_url:   window.location.href
  })
  .then(function(){
-  status.className = 'output fb-success';
-  status.innerText = 'Thank you! Your feedback has been sent.';
+  sessionStorage.setItem('_fb_n', sent + 1);
+  status.className = 'fb-status fb-success';
+  status.innerText = '✓ Thank you! Your feedback has been sent.';
   form.reset();
+  // Reset character counter
+  const cc = document.getElementById('charCount');
+  if(cc){ cc.innerText = '0'; const el = cc.closest('.char-counter'); if(el) el.className = 'char-counter'; }
  })
  .catch(function(err){
-  status.className = 'output fb-error';
-  status.innerText = 'Failed to send. Please try again.';
+  const m = (err && err.status === 429)
+   ? 'Too many requests — please wait a moment and try again.'
+   : 'Could not send. Check your connection and try again.';
+  status.className = 'fb-status fb-error';
+  status.innerText = '✕ ' + m;
   console.error('EmailJS error:', err);
  })
  .finally(function(){
   btn.classList.remove('fb-loading');
-  btn.innerText = 'Send Feedback';
+  if(btnText) btnText.innerText = 'Send Feedback';
+  btn.disabled = false;
  });
 
  return false;
