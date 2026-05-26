@@ -22,22 +22,75 @@ crossorigin="anonymous"></script>
 <body>
 
 <header class="topbar">
-<a href="index.html">⬅ Back</a>
-<h2>💬 Feedback</h2>
+<a href="index.html">&#8592; Back</a>
+<h2>Feedback</h2>
 </header>
 
-<div class="tool feedback-form">
-<p class="form-intro">We'd love to hear from you! Share your thoughts, suggestions, or report issues.</p>
+<!--
+  ╔═══════════════════════════════════════════════════════╗
+  ║  EMBED ON ANY PAGE — copy the <main> block below,    ║
+  ║  include css/style.css + js/main.js, and add the     ║
+  ║  EmailJS <script> tag in your <head>.                 ║
+  ╚═══════════════════════════════════════════════════════╝
+-->
+<main class="tool feedback-form" role="main">
 
-<form id="feedbackForm" onsubmit="return sendFeedback(event)">
-<input type="text" id="fbName" name="user_name" placeholder="Your Name" required>
-<input type="email" id="fbEmail" name="user_email" placeholder="Email (optional)">
-<textarea id="fbMessage" name="message" placeholder="Your feedback or message..." rows="5" required></textarea>
-<button type="submit" id="fbSubmit">Send Feedback</button>
-</form>
+  <div class="fb-header">
+    <svg class="fb-icon-svg" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+      <rect x="4" y="8" width="40" height="28" rx="5" stroke="currentColor" stroke-width="2.5" fill="none"/>
+      <polyline points="4,10 24,26 44,10" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/>
+      <line x1="4" y1="42" x2="20" y2="36" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+      <line x1="44" y1="42" x2="28" y2="36" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+    </svg>
+    <h1 class="fb-title">Share Your Feedback</h1>
+    <p class="form-intro">Your thoughts help improve every tool on this site.</p>
+  </div>
 
-<div id="fbStatus" class="output"></div>
-</div>
+  <form id="feedbackForm" onsubmit="return sendFeedback(event)" novalidate>
+
+    <div class="field-group">
+      <label for="fbName">Name <span class="req" aria-hidden="true">*</span></label>
+      <input type="text" id="fbName" name="user_name"
+             placeholder="Your name" autocomplete="name"
+             aria-required="true" aria-describedby="nameError">
+      <span class="field-err" id="nameError" role="alert"></span>
+    </div>
+
+    <div class="field-group">
+      <label for="fbEmail">Email <span class="opt">(optional)</span></label>
+      <input type="email" id="fbEmail" name="user_email"
+             placeholder="you@example.com" autocomplete="email"
+             aria-describedby="emailError">
+      <span class="field-err" id="emailError" role="alert"></span>
+    </div>
+
+    <div class="field-group">
+      <label for="fbMessage">Message <span class="req" aria-hidden="true">*</span></label>
+      <textarea id="fbMessage" name="message"
+                placeholder="Share thoughts, suggestions, or report an issue&#8230;"
+                rows="5" maxlength="1000"
+                aria-required="true" aria-describedby="messageError charCountLabel"></textarea>
+      <div class="char-row">
+        <span class="field-err" id="messageError" role="alert"></span>
+        <span class="char-counter" id="charCountLabel" aria-live="polite">
+          <span id="charCount">0</span>/1000
+        </span>
+      </div>
+    </div>
+
+    <button type="submit" id="fbSubmit">
+      <span class="btn-text">Send Feedback</span>
+      <svg class="btn-spin" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2.5"
+                stroke-dasharray="40 20" stroke-linecap="round"/>
+      </svg>
+    </button>
+
+  </form>
+
+  <div id="fbStatus" class="fb-status" role="alert" aria-live="polite"></div>
+
+</main>
 
 <div class="ad-slot">
 <ins class="adsbygoogle"
