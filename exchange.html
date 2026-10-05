@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Free Currency Exchange Converter - Live Exchange Rates | Daily Utility Tools</title>
+<meta name="description" content="Convert currencies instantly with live exchange rates. Free currency converter for USD, EUR, GBP, INR, JPY, AED, CAD, AUD and 150+ world currencies.">
+<meta name="keywords" content="currency converter, exchange rate, live exchange rates, USD to INR, EUR to USD, money converter, forex calculator">
+<link rel="canonical" href="https://webzkit.netlify.app/exchange.html">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Free Currency Exchange Converter - Live Exchange Rates">
+<meta property="og:description" content="Convert between 150+ world currencies with live, daily-updated exchange rates.">
+<meta property="og:url" content="https://webzkit.netlify.app/exchange.html">
+<meta name="twitter:card" content="summary">
+
+<script type="application/ld+json">
+{
+ "@context":"https://schema.org",
+ "@type":"WebApplication",
+ "name":"Currency Exchange Converter",
+ "url":"https://webzkit.netlify.app/exchange.html",
+ "applicationCategory":"FinanceApplication",
+ "operatingSystem":"Any",
+ "offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},
+ "description":"Free online currency converter with live exchange rates for 150+ currencies."
+}
+</script>
+
+<link rel="stylesheet" href="css/style.css">
+
+<meta name="google-adsense-account" content="ca-pub-3849886072591861">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3849886072591861"
+crossorigin="anonymous"></script>
+</head>
+<body>
+
+<header class="topbar">
+<a href="index.html">⬅ Back</a>
+<h1 class="page-title">💱 Currency Exchange</h1>
+</header>
+
+<div class="tool">
+<label for="fxAmount" class="fx-label">Amount</label>
+<input id="fxAmount" type="number" min="0" step="any" value="1" inputmode="decimal">
+<div class="fx-row">
+ <div class="fx-col">
+  <label for="fxFrom" class="fx-label">From</label>
+  <select id="fxFrom"></select>
+ </div>
+ <button type="button" class="fx-swap" onclick="fxSwap()" aria-label="Swap currencies" title="Swap currencies">⇄</button>
+ <div class="fx-col">
+  <label for="fxTo" class="fx-label">To</label>
+  <select id="fxTo"></select>
+ </div>
+</div>
+<button onclick="fxConvert()">Convert</button>
+<div id="fxOut" class="output"></div>
+<div id="fxRate" class="fx-meta"></div>
+<div id="fxUpdated" class="fx-meta"></div>
+</div>
+
+<div class="ad-slot">
+<ins class="adsbygoogle"
+style="display:block"
+data-ad-client="ca-pub-3849886072591861"
+data-ad-slot="7619706699"
+data-ad-format="auto"
+data-full-width-responsive="true"></ins>
+<script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+</div>
+
+<section class="tool fx-popular">
+<h2>Popular exchange rates</h2>
+<p class="fx-meta">1 unit of your selected "From" currency in other major currencies.</p>
+<div id="fxPopular" class="fx-table"></div>
+</section>
+
+<!-- AdSense placeholder: Mid-content Ad — paste your ad unit here. -->
+<div class="ad-slot ad-placeholder" data-ad-placeholder="mid-content">
+<span class="ad-placeholder-label">Ad space reserved — Mid Content</span>
+</div>
+
+<article class="tool seo-content">
+<h2>How to use the currency converter</h2>
+<p>Enter the amount you want to convert, choose the currency you have in the <strong>From</strong> box and the currency you want in the <strong>To</strong> box, then press <strong>Convert</strong>. Use the ⇄ button to swap the two currencies instantly.</p>
+<h2>Where do the exchange rates come from?</h2>
+<p>Rates are mid-market reference rates refreshed daily from a public exchange-rate feed. They're ideal for travel budgeting, online shopping, freelancing invoices and quick comparisons. Banks and money-transfer services usually add a margin, so the rate you actually receive may differ slightly.</p>
+<h2>Frequently asked questions</h2>
+<h3>Is this currency converter free?</h3>
+<p>Yes. It's completely free, needs no sign-up and works on mobile and desktop.</p>
+<h3>Which currencies are supported?</h3>
+<p>More than 150 world currencies, including US Dollar (USD), Euro (EUR), British Pound (GBP), Indian Rupee (INR), Japanese Yen (JPY), UAE Dirham (AED), Canadian Dollar (CAD) and Australian Dollar (AUD).</p>
+<h3>How often are rates updated?</h3>
+<p>Rates update once a day. The time of the latest update is shown under the result.</p>
+</article>
+
+<script type="application/ld+json">
+{
+ "@context":"https://schema.org",
+ "@type":"FAQPage",
+ "mainEntity":[
+  {"@type":"Question","name":"Is this currency converter free?","acceptedAnswer":{"@type":"Answer","text":"Yes. It's completely free, needs no sign-up and works on mobile and desktop."}},
+  {"@type":"Question","name":"Which currencies are supported?","acceptedAnswer":{"@type":"Answer","text":"More than 150 world currencies, including USD, EUR, GBP, INR, JPY, AED, CAD and AUD."}},
+  {"@type":"Question","name":"How often are rates updated?","acceptedAnswer":{"@type":"Answer","text":"Rates update once a day. The time of the latest update is shown under the result."}}
+ ]
+}
+</script>
+
+<!-- AdSense placeholder: Footer Ad — paste your ad unit here. -->
+<div class="ad-slot ad-placeholder" data-ad-placeholder="footer">
+<span class="ad-placeholder-label">Ad space reserved — Footer</span>
+</div>
+
+<script src="js/main.js"></script>
+</body>
+</html>

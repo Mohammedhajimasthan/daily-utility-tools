@@ -242,3 +242,20 @@ body.fb-panel-locked{overflow:hidden}
 :root[data-theme="light"] .fb-status.fb-success{background:rgba(0,180,90,.08);border-color:rgba(0,180,90,.3);color:#008a45}
 :root[data-theme="light"] .fb-status.fb-error{background:rgba(220,50,70,.08);border-color:rgba(220,50,70,.28);color:#c62d45}
 @keyframes fbfade{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+
+/* ===== Currency Exchange (exchange.html) ===== */
+.topbar .page-title{font-size:1.5em;margin:0}
+.fx-label{display:block;font-size:.82rem;font-weight:600;letter-spacing:.03em;margin-top:14px;opacity:.85;text-transform:uppercase}
+.fx-label + input,.fx-label + select{margin-top:7px}
+.fx-row{display:flex;align-items:flex-end;gap:10px}
+.fx-col{flex:1;min-width:0}
+.fx-swap{width:46px;height:46px;flex-shrink:0;margin:0 0 1px;padding:0;border-radius:50%;font-size:1.2rem}
+.fx-meta{margin-top:8px;text-align:center;font-size:.85rem;opacity:.7}
+.fx-popular,.seo-content{max-width:640px;margin:36px auto}
+.fx-popular h2,.seo-content h2{margin-top:0;color:var(--neon);font-size:1.25rem}
+.seo-content h2:not(:first-child){margin-top:26px}
+.seo-content h3{font-size:1rem;margin:18px 0 6px}
+.seo-content p{line-height:1.6;opacity:.88;margin:0 0 10px}
+.fx-table{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin-top:16px}
+.fx-table-row{display:flex;justify-content:space-between;gap:8px;padding:10px 14px;border-radius:12px;background:rgba(128,128,128,.1);font-size:.9rem}
+.fx-table-row strong{color:var(--neon)}
