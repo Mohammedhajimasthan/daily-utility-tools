@@ -60,6 +60,85 @@ function countWords(){
  " | Characters: "+t.length;
 }
 
+// ========== Currency Exchange (exchange.html) ==========
+// Rates come from /api/exchange-rates (netlify/functions/exchange-rates.mts), cached per base currency.
+const FX_POPULAR=["USD","EUR","GBP","INR","JPY","AED","CAD","AUD","CNY","SGD","CHF","SAR"];
+const fxCache={};
+
+function fxGetRates(base){
+ if(!fxCache[base]){
+  fxCache[base]=fetch('/api/exchange-rates?base='+base)
+   .then(function(r){ if(!r.ok) throw new Error(); return r.json(); })
+   .catch(function(e){ delete fxCache[base]; throw e; });
+ }
+ return fxCache[base];
+}
+
+function fxFormat(n){
+ return n.toLocaleString(undefined,{maximumFractionDigits:n<1?6:2});
+}
+
+function fxConvert(){
+ const amt=+fxAmount.value, from=fxFrom.value, to=fxTo.value;
+ if(!(amt>=0)||fxAmount.value===""){ fxOut.innerText="Enter a valid amount"; return; }
+ fxOut.innerText="Loading…";
+ fxGetRates(from).then(function(d){
+  const rate=d.rates[to];
+  fxOut.innerText=fxFormat(amt)+" "+from+" = "+fxFormat(amt*rate)+" "+to;
+  fxRate.innerText="1 "+from+" = "+fxFormat(rate)+" "+to+"  ·  1 "+to+" = "+fxFormat(1/rate)+" "+from;
+  fxUpdated.innerText="Rates updated: "+new Date(d.updated).toLocaleString();
+  fxRenderPopular(d);
+ }).catch(function(){
+  fxOut.innerText="Couldn't load exchange rates. Please try again.";
+  fxRate.innerText=""; fxUpdated.innerText="";
+ });
+}
+
+function fxRenderPopular(d){
+ const box=document.getElementById('fxPopular');
+ if(!box) return;
+ box.innerHTML="";
+ FX_POPULAR.filter(function(c){ return c!==d.base&&d.rates[c]; }).forEach(function(c){
+  const row=document.createElement('div');
+  row.className='fx-table-row';
+  row.innerHTML='<span>1 '+d.base+' → '+c+'</span><strong>'+fxFormat(d.rates[c])+'</strong>';
+  box.appendChild(row);
+ });
+}
+
+function fxSwap(){
+ const f=fxFrom.value;
+ fxFrom.value=fxTo.value; fxTo.value=f;
+ fxConvert();
+}
+
+document.addEventListener('DOMContentLoaded', function(){
+ const from=document.getElementById('fxFrom'), to=document.getElementById('fxTo');
+ if(!from||!to) return;
+ // Populate selects from the live list so every supported currency is available
+ fxGetRates('USD').then(function(d){
+  const codes=Object.keys(d.rates).sort();
+  const names=typeof Intl.DisplayNames==='function'?new Intl.DisplayNames(['en'],{type:'currency'}):null;
+  [from,to].forEach(function(sel){
+   codes.forEach(function(c){
+    const o=document.createElement('option');
+    o.value=c;
+    let label=c;
+    try{ if(names) label=c+" — "+names.of(c); }catch(e){}
+    o.textContent=label;
+    sel.appendChild(o);
+   });
+  });
+  from.value='USD'; to.value=d.rates.INR?'INR':'EUR';
+  fxConvert();
+ }).catch(function(){
+  fxOut.innerText="Couldn't load exchange rates. Please try again later.";
+ });
+ from.addEventListener('change',fxConvert);
+ to.addEventListener('change',fxConvert);
+ document.getElementById('fxAmount').addEventListener('input',fxConvert);
+});
+
 // ========== EmailJS Feedback Form ==========
 // SETUP STEPS (one-time, ~5 minutes):
 // 1. Sign up free at https://www.emailjs.com  (200 emails/month on free tier)
